@@ -43,7 +43,7 @@ private final EntityManager em;
 
     @Override
     public Optional<Course> findByName(String name) {
-        return Optional.empty();
+        return repository.findByName(name);
     }
 
     @Override

@@ -26,6 +26,7 @@ public class CourseDto {
 
     public static CourseDto response(Course course) {
         CourseDto dto = new CourseDto();
+        dto.setId(course.getId());
         dto.setName(course.getName());
         dto.setDuration(course.getDuration());
         return dto;

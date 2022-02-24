@@ -2,14 +2,19 @@ package com.example.studentCrud.utils;
 
 
 import com.example.studentCrud.constant.ResponseStatus;
+import lombok.Data;
 import org.json.simple.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
 
+@Data
 public class ResponseBuilder implements Response {
+
     private final ResponseType type;
     private String status = null;
     private Object data = null;
-    private final Object meta = null;
+    private Object meta = null;
     private String message = null;
     private Object errors = null;
 
@@ -17,10 +22,20 @@ public class ResponseBuilder implements Response {
         this.type = type;
     }
 
-    public static ResponseBuilder error(Object errors) {
-        ResponseBuilder response = new ResponseBuilder(ResponseType.ERROR);
-        response.errors = errors;
-        response.status = ResponseStatus.ERROR;
+    public static ResponseBuilder paginatedSuccess(PaginatedResponse data) {
+        ResponseBuilder response = new ResponseBuilder(ResponseType.DATA);
+        response.data = data.list;
+        response.meta = data.meta;
+        response.status = ResponseStatus.SUCCESS;
+        return response;
+    }
+
+    public static ResponseBuilder paginatedSuccess(PaginatedResponse data, String message) {
+        ResponseBuilder response = new ResponseBuilder(ResponseType.DATA);
+        response.data = data.list;
+        response.meta = data.meta;
+        response.message = message;
+        response.status = ResponseStatus.SUCCESS;
         return response;
     }
 
@@ -39,18 +54,47 @@ public class ResponseBuilder implements Response {
         return response;
     }
 
+    public static ResponseBuilder success(Object data,String status, String message) {
+        ResponseBuilder response = new ResponseBuilder(ResponseType.DATA);
+        response.data = data;
+        response.message = message;
+        response.status = status;
+        return response;
+    }
+
+    public static ResponseBuilder error(Object errors) {
+        ResponseBuilder response = new ResponseBuilder(ResponseType.ERROR);
+        response.errors = errors;
+        response.status = ResponseStatus.ERROR;
+        return response;
+    }
+
+    public static ResponseBuilder error(Object errors, String message) {
+        ResponseBuilder response = new ResponseBuilder(ResponseType.ERROR);
+        response.errors = errors;
+        response.message = message;
+        response.status = ResponseStatus.ERROR;
+        return response;
+    }
+
     @Override
     public JSONObject getJson() {
-        return null;
+
+        Map<String, Object> maps = new HashMap<String, Object>();
+
+        switch (this.type) {
+            case DATA:
+                maps.put("status", status);
+                maps.put("data", data);
+                maps.put("meta", meta);
+                maps.put("message", message);
+            case ERROR:
+                maps.put("status", status);
+                maps.put("message", message);
+                maps.put("errors", errors);
+        }
+
+        return new JSONObject(maps);
     }
 
-    @Override
-    public JSONObject customGetJson() {
-        return null;
-    }
-
-    @Override
-    public JSONObject customGetJsonForAll() {
-        return null;
-    }
 }

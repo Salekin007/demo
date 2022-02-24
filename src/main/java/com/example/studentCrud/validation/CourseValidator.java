@@ -23,7 +23,7 @@ public class CourseValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         CourseDto dto = (CourseDto) target;
-        if(dto.getName().isEmpty()){
+        if(!dto.getName().isEmpty()){
             Optional<Course> course = service.findByName(dto.getName());
             if(course.isPresent()){
                 errors.rejectValue("name", null , "Already Exists");
