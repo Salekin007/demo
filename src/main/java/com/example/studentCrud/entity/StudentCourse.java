@@ -26,8 +26,8 @@ public class StudentCourse extends BaseEntity {
     @Column(name = "DURATION")
     private String duration;
 
-    @Version
-    @Column(name = "RECORD_VERSION")
-    protected long version;
+//    @Version
+//    @Column(name = "RECORD_VERSION")
+//    protected long version;
 }
 
