@@ -1,53 +1,41 @@
 package com.example.studentCrud.resource;
 
-import com.example.studentCrud.dto.StudentDto;
+
+import com.example.studentCrud.dto.AttendanceDto;
+import com.example.studentCrud.entity.Attendance;
+import com.example.studentCrud.enums.RecordStatus;
+import com.example.studentCrud.service.AttendanceService;
+import com.example.studentCrud.utils.CommonDataHelper;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.example.studentCrud.utils.ResponseBuilder.success;
 import static org.springframework.http.ResponseEntity.ok;
 
+@Validated
 @RestController
+@RequiredArgsConstructor
 @RequestMapping("api/v1/attendance")
-@Api(tags = "attendance's data")
+@Api(tags = "Attendance's data")
 public class AttendanceResource {
-    private Map<Long, String> map= new HashMap<>();
+    private final AttendanceService service;
 
+    private final CommonDataHelper helper;
 
-    public AttendanceResource(){
-        map.put(1L,"Amit");
-        map.put(5L,"Rahul");
-        map.put(2L,"Jai");
-        map.put(6L,"Amit");
-    }
-    @GetMapping("/find")
-    @ApiOperation(value = "Get attendance by id", response = String.class)
-    public ResponseEntity<JSONObject> findAll() {
-        return ok(success(map).getJson());
-    }
-
-    @GetMapping("/find/{id}")
-    @ApiOperation(value = "Get attendance by id", response = String.class)
-    public ResponseEntity<?> findById(@PathVariable final long id) {
-        StudentDto studentDto = new StudentDto();
-        map.forEach(
-                (key, value) -> {
-                    if (key.equals(id)){
-                        studentDto.setId(key);
-                        studentDto.setName(value);
-                    }
-                }
-        );
-        return ok(success(studentDto).getJson());
+    @RequestMapping(
+            path = "/save",
+            method = RequestMethod.POST)
+    // @ApiOperation(value = "save student info with Image image", response = String.class)
+    public ResponseEntity<JSONObject> save(@RequestBody AttendanceDto dto, BindingResult bindingResult) {
+        Attendance attendance = service.insertAttendance(dto, RecordStatus.DRAFT);
+        return ok(success(AttendanceDto.response(attendance), "Attendance Save Successfully").getJson());
     }
 }
