@@ -17,4 +17,7 @@ public interface AttendanceService {
     List<Attendance> findAll();
     Attendance update(AttendanceDto dto, RecordStatus recordStatus);
 
+//    Optional<Attendance> findByName(String name);
+
+    Optional<Attendance> findByClassName(String className);
 }

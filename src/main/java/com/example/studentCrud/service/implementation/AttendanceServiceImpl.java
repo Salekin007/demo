@@ -56,4 +56,15 @@ public class AttendanceServiceImpl implements AttendanceService {
         Attendance updatedAttendance = repository.save(attendance);
         return updatedAttendance;
     }
+
+//    @Override
+//    public Optional<Attendance> findByName(String name) {
+//        return Optional.empty();
+//    }
+
+
+    @Override
+    public Optional<Attendance> findByClassName(String className) {
+        return repository.findByClassName(className);
+    }
 }

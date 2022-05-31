@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import java.util.Date;
 
 @Data
 @RequiredArgsConstructor
@@ -19,29 +20,53 @@ public class AttendanceDto {
     private Long id;
 
     @NotNull
-    private String name;
+    private String className;
 
     @NotNull
-    private String duration;
+    private String sectionName;
+
+    @NotNull
+    private Date startTime;
+
+    @NotNull
+    private Date endTime;
+
+    @NotNull
+    private Long phoneNumber;
+
+    @NotNull
+    private String gender;
 
     public static AttendanceDto response(Attendance attendance) {
         AttendanceDto dto = new AttendanceDto();
         dto.setId(attendance.getId());
-        dto.setName(attendance.getName());
-        dto.setDuration(attendance.getDuration());
+        dto.setClassName(attendance.getClassName());
+        dto.setSectionName(attendance.getSectionName());
+        dto.setStartTime(attendance.getStartTime());
+        dto.setEndTime(attendance.getEndTime());
+        dto.setPhoneNumber(attendance.getPhoneNumber());
+        dto.setGender(attendance.getGender());
         return dto;
     }
 
     public Attendance to() {
         Attendance attendance = new Attendance();
-        attendance.setName(this.name);
-        attendance.setDuration(this.duration);
+        attendance.setClassName(this.className);
+        attendance.setSectionName(this.sectionName);
+        attendance.setStartTime(this.startTime);
+        attendance.setEndTime(this.endTime);
+        attendance.setPhoneNumber(this.phoneNumber);
+        attendance.setGender(this.gender);
         return attendance;
     }
 
     public Attendance update(Attendance attendance) {
-        attendance.setName(this.name);
-        attendance.setDuration(this.duration);
+        attendance.setClassName(this.className);
+        attendance.setSectionName(this.sectionName);
+        attendance.setStartTime(this.startTime);
+        attendance.setEndTime(this.endTime);
+        attendance.setPhoneNumber(this.phoneNumber);
+        attendance.setGender(this.gender);
         return attendance;
     }
 

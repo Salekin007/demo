@@ -6,11 +6,13 @@ import com.example.studentCrud.entity.Attendance;
 import com.example.studentCrud.enums.RecordStatus;
 import com.example.studentCrud.service.AttendanceService;
 import com.example.studentCrud.utils.CommonDataHelper;
+import com.example.studentCrud.validation.AttendanceValidator;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,11 +35,20 @@ public class AttendanceResource {
 
     private final CommonDataHelper helper;
 
+    private final AttendanceValidator validator;
+
     @RequestMapping(
             path = "/save",
             method = RequestMethod.POST)
     // @ApiOperation(value = "save student info with image", response = String.class)
     public ResponseEntity<JSONObject> save(@RequestBody AttendanceDto dto, BindingResult bindingResult) {
+
+        ValidationUtils.invokeValidator(validator, dto, bindingResult);
+
+        if (bindingResult.hasErrors()) {
+            return badRequest().body(error(fieldError(bindingResult)).getJson());
+        }
+
         Attendance attendance = service.insertAttendance(dto, RecordStatus.DRAFT);
         return ok(success(AttendanceDto.response(attendance), "Attendance Save Successfully").getJson());
     }

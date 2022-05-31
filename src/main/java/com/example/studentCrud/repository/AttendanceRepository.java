@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
     Optional<Attendance> findById(Integer id);
+
+    Optional<Attendance> findByClassName(String className);
 }
