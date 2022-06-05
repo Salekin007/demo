@@ -72,7 +72,15 @@ public class AttendanceResource {
 
         return ok(success(attendance).getJson());
     }
+    @GetMapping("/find/ByAttendance")
+    @ResponseBody
+    //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
+    public ResponseEntity<JSONObject> findbyAttendance() {
 
+        List<Attendance> attendance = service.findbyAttendance();
+
+        return ok(success(attendance).getJson());
+    }
     @PutMapping("/update")
     // @ApiOperation(value = "Update qouta", response = QoutaRequest.class)
     public ResponseEntity<JSONObject> update(@RequestBody AttendanceDto dto, BindingResult bindingResult) {

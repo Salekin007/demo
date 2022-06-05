@@ -10,6 +10,8 @@ import org.springframework.validation.Validator;
 
 import java.util.Optional;
 
+import static com.example.studentCrud.utils.StringUtils.isNotEmpty;
+
 @Component
 @RequiredArgsConstructor
 public class AttendanceValidator implements Validator {
@@ -29,6 +31,10 @@ public class AttendanceValidator implements Validator {
                 errors.rejectValue("className", null , "Already Exists");
             }
         }
-
+        if (isNotEmpty(dto.getStartTime().toString()) & isNotEmpty(dto.getEndTime().toString())) {
+            if (dto.getStartTime().after(dto.getEndTime())) {
+                errors.rejectValue("endTime", null, "Start date is after than End date");
+            }
+        }
     }
 }

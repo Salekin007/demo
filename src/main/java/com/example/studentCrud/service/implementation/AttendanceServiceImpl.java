@@ -43,6 +43,11 @@ public class AttendanceServiceImpl implements AttendanceService {
         return repository.findAll();
     }
 
+    @Override
+    public List<Attendance> findbyAttendance() {
+        return (List<Attendance>) repository.findbyAttendance();
+    }
+
 
     @Override
     @Transactional

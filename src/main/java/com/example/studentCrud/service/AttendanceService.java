@@ -15,6 +15,9 @@ public interface AttendanceService {
 
     Optional<Attendance> findById(Long id, RecordStatus draft);
     List<Attendance> findAll();
+
+    List<Attendance> findbyAttendance();
+
     Attendance update(AttendanceDto dto, RecordStatus recordStatus);
 
 //    Optional<Attendance> findByName(String name);
