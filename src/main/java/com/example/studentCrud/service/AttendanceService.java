@@ -16,7 +16,7 @@ public interface AttendanceService {
     Optional<Attendance> findById(Long id, RecordStatus draft);
     List<Attendance> findAll();
 
-    List<Attendance> findbyAttendance();
+    List<Attendance> findbyAttendance(int page, int size);
 
     Attendance update(AttendanceDto dto, RecordStatus recordStatus);
 

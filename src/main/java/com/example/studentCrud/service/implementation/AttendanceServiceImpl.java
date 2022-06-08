@@ -47,8 +47,8 @@ public class AttendanceServiceImpl implements AttendanceService {
     }
 
     @Override
-    public List<Attendance> findbyAttendance() {
-        return (List<Attendance>) repository.findbyAttendance(getPageable(1, 10));
+    public List<Attendance> findbyAttendance(int page, int size) {
+        return repository.findbyAttendance(getPageable(page, size)).getContent();
     }
 
 
@@ -95,7 +95,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
             @Override
             public Sort getSort() {
-                return null;
+                return Sort.by(Sort.Order.by("id"));
             }
 
             @Override
