@@ -1,7 +1,6 @@
 package com.example.studentCrud.repository;
 
 import com.example.studentCrud.entity.Attendance;
-import com.example.studentCrud.entity.Course;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -16,6 +15,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
     Optional<Attendance> findByClassName(String className);
 
-    @Query(value = "SELECT * FROM ATTENDANCE")
-    Page<Attendance> findbyAttendance();
+    @Query(value = "SELECT a FROM Attendance a")
+    Page<Attendance> findbyAttendance(Pageable pageable);
 }

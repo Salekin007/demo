@@ -8,6 +8,9 @@ import com.example.studentCrud.helper.AttendanceHelper;
 import com.example.studentCrud.repository.AttendanceRepository;
 import com.example.studentCrud.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -45,7 +48,7 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<Attendance> findbyAttendance() {
-        return (List<Attendance>) repository.findbyAttendance();
+        return (List<Attendance>) repository.findbyAttendance(getPageable(1, 10));
     }
 
 
@@ -71,5 +74,54 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Override
     public Optional<Attendance> findByClassName(String className) {
         return repository.findByClassName(className);
+    }
+
+    private Pageable getPageable(int page, int size) {
+        return new Pageable() {
+            @Override
+            public int getPageNumber() {
+                return page;
+            }
+
+            @Override
+            public int getPageSize() {
+                return size;
+            }
+
+            @Override
+            public long getOffset() {
+                return (page - 1) * size;
+            }
+
+            @Override
+            public Sort getSort() {
+                return null;
+            }
+
+            @Override
+            public Pageable next() {
+                return null;
+            }
+
+            @Override
+            public Pageable previousOrFirst() {
+                return null;
+            }
+
+            @Override
+            public Pageable first() {
+                return null;
+            }
+
+            @Override
+            public Pageable withPage(int pageNumber) {
+                return null;
+            }
+
+            @Override
+            public boolean hasPrevious() {
+                return false;
+            }
+        };
     }
 }
