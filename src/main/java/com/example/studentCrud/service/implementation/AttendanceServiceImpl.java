@@ -43,12 +43,24 @@ public class AttendanceServiceImpl implements AttendanceService {
 
     @Override
     public List<Attendance> findAll() {
+//        return repository.findByRecordStatusNot(RecordStatus.DELETED);
         return repository.findAll();
     }
+
 
     @Override
     public List<Attendance> findbyAttendance(int page, int size) {
         return repository.findbyAttendance(getPageable(page, size)).getContent();
+    }
+
+    @Override
+    @Transactional
+    public void updateRecordStatus(Long id, RecordStatus status) {
+        Attendance attendance = repository.findByIdAndRecordStatusNot(id, status)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee Id: " + id));
+        helper.getUpdateData(attendance, status);
+
+        repository.save(attendance);
     }
 
 
@@ -65,16 +77,20 @@ public class AttendanceServiceImpl implements AttendanceService {
         return updatedAttendance;
     }
 
-//    @Override
+    //    @Override
 //    public Optional<Attendance> findByName(String name) {
 //        return Optional.empty();
 //    }
+    Optional<Attendance> findByIdAndRecordStatusNot(Long id, RecordStatus status) {
+        return repository.findByIdAndRecordStatusNot(id, status);
+    }
 
 
     @Override
     public Optional<Attendance> findByClassName(String className) {
         return repository.findByClassName(className);
     }
+
 
     private Pageable getPageable(int page, int size) {
         return new Pageable() {

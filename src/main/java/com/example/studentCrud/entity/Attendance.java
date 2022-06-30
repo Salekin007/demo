@@ -1,5 +1,6 @@
 package com.example.studentCrud.entity;
 
+import com.example.studentCrud.enums.RecordStatus;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -36,4 +37,6 @@ public class Attendance extends BaseEntity {
 
     @Column(name = "ATTENDANCE_gender")
     private String gender;
+
+
 }

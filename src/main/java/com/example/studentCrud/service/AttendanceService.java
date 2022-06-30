@@ -5,6 +5,7 @@ import com.example.studentCrud.dto.CourseDto;
 import com.example.studentCrud.entity.Attendance;
 import com.example.studentCrud.entity.Course;
 import com.example.studentCrud.enums.RecordStatus;
+import com.example.studentCrud.exception.ResourceNotFoundException;
 
 import javax.transaction.Transactional;
 import java.util.List;
@@ -23,4 +24,10 @@ public interface AttendanceService {
 //    Optional<Attendance> findByName(String name);
 
     Optional<Attendance> findByClassName(String className);
+
+    void updateRecordStatus(Long id, RecordStatus status);
+
+
+
+
 }

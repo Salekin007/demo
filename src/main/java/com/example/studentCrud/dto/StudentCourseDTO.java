@@ -19,7 +19,6 @@ public class StudentCourseDTO {
         studentCourse.setDuration(duration);
 //        studentCourse.setVersion(version);
         studentCourse.setPk(new StudentCoursePK(student, courseId));
-        student.getStudentCourses().add(studentCourse);
         return studentCourse;
     }
 

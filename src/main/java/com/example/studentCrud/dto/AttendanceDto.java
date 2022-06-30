@@ -37,6 +37,8 @@ public class AttendanceDto {
     @NotNull
     private String gender;
 
+    private Long studentId;
+
     public static AttendanceDto response(Attendance attendance) {
         AttendanceDto dto = new AttendanceDto();
         dto.setId(attendance.getId());

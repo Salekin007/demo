@@ -14,8 +14,4 @@ public class StudentCourseListDTO {
 
     private List<StudentCourseDTO> studentCourses;
 
-    public StudentCourseListDTO(Student student) {
-        this.studentCourses = student.getStudentCourses()
-                .stream().map(StudentCourseDTO::fromEntity).collect(Collectors.toList());
-    }
 }

@@ -82,15 +82,6 @@ public class StudentResource {
             return badRequest().body(
                     error("file 1 data must be selected").getJson());
 
-        List<Enclosure> enclosures = null;
-        try {
-            enclosures = studentHelper.getStudentEnclosers(file1, request1, student);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
-
-        student.addEnclosures(enclosures);
-
         service.saveEncloser(student);
         return ok(success(null, "success").getJson());
     }
@@ -127,6 +118,6 @@ public class StudentResource {
                 .orElseThrow(() -> new ResourceNotFoundException("Student " + studentId));
         service.studentCourse(dto, student);
 
-        return ok(success(null, "Student Edited Successfully").getJson());
+        return ok(success(null, "Attendance Edited Successfully").getJson());
     }
 }

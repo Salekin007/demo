@@ -13,7 +13,7 @@ import java.util.Objects;
 @ToString
 @RequiredArgsConstructor
 @Entity
-@Table(name = "STUDENT")
+@Table(name = "STUDENT_ONE")
 public class Student extends BaseEntity
 {
     @Id
@@ -24,30 +24,16 @@ public class Student extends BaseEntity
     @Column (name = "STUDENT_NAME")
     private String name;
 
-    @OneToMany
-    @JoinColumn(name = "STUDENT_ID")
-    @ToString.Exclude
-    private List<Course> courseList;
-//
-//    @OneToOne
-//    @JoinColumn(name = "STUDENT_ID")
-//    private Enclosure enclosure;
-
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "STUDENT_ID")
     @ToString.Exclude
-    List<Enclosure> enclosure;
+    private List<Attendance> attendanceList;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "STUDENT_ID")
-    @ToString.Exclude
-    private List<StudentCourse> studentCourses;
-
-    public void addEnclosures(List<Enclosure> encloser) {
-        if (this.enclosure == null) {
-            this.enclosure = new ArrayList<>();
+    public void addAttendence(List<Attendance> attendance) {
+        if (this.attendanceList == null) {
+            this.attendanceList = new ArrayList<>();
         }
-        this.enclosure.addAll(encloser);
+        this.attendanceList.addAll(attendance);
     }
 
     @Override
