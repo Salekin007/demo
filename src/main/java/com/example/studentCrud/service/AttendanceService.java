@@ -19,6 +19,7 @@ public interface AttendanceService {
 
     List<Attendance> findbyAttendance(int page, int size);
 
+    List<Attendance> findByStudentId(Long studentId);
     Attendance update(AttendanceDto dto, RecordStatus recordStatus);
 
 //    Optional<Attendance> findByName(String name);

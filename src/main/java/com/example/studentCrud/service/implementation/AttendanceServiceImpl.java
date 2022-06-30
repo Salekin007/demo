@@ -34,7 +34,10 @@ public class AttendanceServiceImpl implements AttendanceService {
         Attendance saveAttendance = repository.save(attendance);
         return saveAttendance;
     }
-
+    @Override
+    public List<Attendance> findByStudentId(Long studentId) {
+        return repository.findByStudentId(studentId);
+    }
     @Override
     public Optional<Attendance> findById(Long id, RecordStatus recordStatus) {
         Optional<Attendance> attendance = repository.findById(id);

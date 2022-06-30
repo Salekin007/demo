@@ -4,10 +4,16 @@ import com.example.studentCrud.dto.AttendanceDto;
 import com.example.studentCrud.entity.Attendance;
 import com.example.studentCrud.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
+import java.text.SimpleDateFormat;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.studentCrud.utils.StringUtils.isNotEmpty;
@@ -36,6 +42,25 @@ public class AttendanceValidator implements Validator {
                 errors.rejectValue("endTime", null, "Start date is after than End date");
             }
         }
+        List<Attendance> attendances = service.findByStudentId(1L);
+        attendances.forEach(attendance -> {
+            if (getFormattedDatde(attendance.getStartTime()).equals(getFormattedDatde(dto.getStartTime())))
+                errors.rejectValue("startTime", null, "Already Attendance Taken from you try next day");
+        });
     }
+
+    private String getFormattedDatde(Date date){
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        return  formatter.format(date);
+    }
+
+/*    public static void main(String[] args) {
+        String sampleDate = "2022-06-30";
+        Date date = new Date();
+        System.out.println(date);
+        String str = getFormattedDatde(date);
+        System.out.println(str);
+        System.out.println(str.equals(sampleDate));
+    }*/
 
 }

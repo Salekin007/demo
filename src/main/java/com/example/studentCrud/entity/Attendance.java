@@ -13,8 +13,8 @@ import java.util.Date;
 @RequiredArgsConstructor
 @Table(name = "ATTENDANCE")
 public class Attendance extends BaseEntity {
-    @Id
 
+    @Id
     @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ATTENDANCE_ID")
