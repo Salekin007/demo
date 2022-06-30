@@ -42,7 +42,7 @@ public class AttendanceValidator implements Validator {
                 errors.rejectValue("endTime", null, "Start date is after than End date");
             }
         }
-        List<Attendance> attendances = service.findByStudentId(1L);
+        List<Attendance> attendances = service.findByStudentId(dto.getStudentId());
         attendances.forEach(attendance -> {
             if (getFormattedDatde(attendance.getStartTime()).equals(getFormattedDatde(dto.getStartTime())))
                 errors.rejectValue("startTime", null, "Already Attendance Taken from you try next day");
