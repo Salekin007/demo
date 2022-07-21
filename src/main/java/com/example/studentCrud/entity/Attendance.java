@@ -38,5 +38,4 @@ public class Attendance extends BaseEntity {
     @Column(name = "ATTENDANCE_gender")
     private String gender;
 
-
 }

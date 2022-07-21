@@ -88,6 +88,16 @@ public class AttendanceResource {
 
         return ok(success(attendance).getJson());
     }
+
+    @GetMapping("/find/studentId")
+    @ResponseBody
+    //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
+    public ResponseEntity<JSONObject> findAll(@RequestParam Long studentId) {
+
+        List<Attendance> attendance = service.findByStudentId(studentId);
+
+        return ok(success(attendance).getJson());
+    }
     @GetMapping("/find/ByAttendance")
     @ResponseBody
     //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
