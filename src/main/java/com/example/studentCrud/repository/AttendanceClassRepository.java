@@ -21,9 +21,6 @@ public interface AttendanceClassRepository extends JpaRepository<AttendanceClass
 
     Optional<AttendanceClass> findByAttendanceClassName(String attendanceClassName);
 
-    @Query(value = "SELECT a FROM AttendancClass a")
-    Page<AttendanceClass> findbyAttendance(Pageable pageable);
-
     Optional<AttendanceClass> findByIdAndRecordStatusNot(Long id, RecordStatus recordStatus);
 
     @Query(value = "SELECT * FROM ATTENDANCE_CLASS where STUDENT_ID = :studentId", nativeQuery = true)
