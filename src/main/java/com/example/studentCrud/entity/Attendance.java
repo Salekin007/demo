@@ -20,8 +20,9 @@ public class Attendance extends BaseEntity {
     @Column(name = "ATTENDANCE_ID")
     private Long id;
 
-    @Column(name = "ATTENDANCE_CLASS")
-    private String className;
+    @ManyToOne
+    @JoinColumn(name = "ATTENDANCE_CLASS_ID")
+    private AttendanceClass attendanceClass;
 
     @Column(name = "ATTENDANCE_SECTION")
     private String sectionName;

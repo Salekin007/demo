@@ -20,7 +20,7 @@ public class AttendanceDto {
     private Long id;
 
     @NotNull
-    private String className;
+    private Long attendanceClassId;
 
     @NotNull
     private String sectionName;
@@ -42,7 +42,7 @@ public class AttendanceDto {
     public static AttendanceDto response(Attendance attendance) {
         AttendanceDto dto = new AttendanceDto();
         dto.setId(attendance.getId());
-        dto.setClassName(attendance.getClassName());
+        dto.setAttendanceClassId(attendance.getAttendanceClass().getId());
         dto.setSectionName(attendance.getSectionName());
         dto.setStartTime(attendance.getStartTime());
         dto.setEndTime(attendance.getEndTime());
@@ -53,7 +53,6 @@ public class AttendanceDto {
 
     public Attendance to() {
         Attendance attendance = new Attendance();
-        attendance.setClassName(this.className);
         attendance.setSectionName(this.sectionName);
         attendance.setStartTime(this.startTime);
         attendance.setEndTime(this.endTime);
@@ -63,7 +62,6 @@ public class AttendanceDto {
     }
 
     public Attendance update(Attendance attendance) {
-        attendance.setClassName(this.className);
         attendance.setSectionName(this.sectionName);
         attendance.setStartTime(this.startTime);
         attendance.setEndTime(this.endTime);

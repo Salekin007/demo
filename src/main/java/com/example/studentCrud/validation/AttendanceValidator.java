@@ -2,16 +2,14 @@ package com.example.studentCrud.validation;
 
 import com.example.studentCrud.dto.AttendanceDto;
 import com.example.studentCrud.entity.Attendance;
+import com.example.studentCrud.enums.RecordStatus;
 import com.example.studentCrud.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 import java.text.SimpleDateFormat;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
@@ -31,8 +29,8 @@ public class AttendanceValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         AttendanceDto dto = (AttendanceDto) target;
-        if(!dto.getClassName().isEmpty()){
-            Optional<Attendance> attendance = service.findByClassName(dto.getClassName());
+        if(dto != null){
+            Optional<Attendance> attendance = service.findById(dto.getAttendanceClassId(), RecordStatus.ACTIVE);
             if(attendance.isPresent()){
                 errors.rejectValue("className", null , "Already Exists");
             }

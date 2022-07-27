@@ -88,13 +88,6 @@ public class AttendanceServiceImpl implements AttendanceService {
         return repository.findByIdAndRecordStatusNot(id, status);
     }
 
-
-    @Override
-    public Optional<Attendance> findByClassName(String className) {
-        return repository.findByClassName(className);
-    }
-
-
     private Pageable getPageable(int page, int size) {
         return new Pageable() {
             @Override

@@ -23,8 +23,8 @@ public class AttendanceClassDto {
 
     public static AttendanceClassDto response(AttendanceClass attendanceClass) {
         AttendanceClassDto dto = new AttendanceClassDto();
-        dto.setId(dto.getId());
-        dto.setAttendanceClassName(dto.getAttendanceClassName());
+        dto.setId(attendanceClass.getId());
+        dto.setAttendanceClassName(attendanceClass.getAttendanceClassName());
         return dto;
     }
 
@@ -38,6 +38,5 @@ public class AttendanceClassDto {
         attendanceClass.setAttendanceClassName(this.attendanceClassName);
         return attendanceClass;
     }
-
 }
 

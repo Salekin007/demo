@@ -22,13 +22,6 @@ public interface AttendanceService {
     List<Attendance> findByStudentId(Long studentId);
     Attendance update(AttendanceDto dto, RecordStatus recordStatus);
 
-//    Optional<Attendance> findByName(String name);
-
-    Optional<Attendance> findByClassName(String className);
-
     void updateRecordStatus(Long id, RecordStatus status);
-
-
-
 
 }

@@ -17,8 +17,6 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
     List<Attendance> findByRecordStatusNot(RecordStatus recordStatus);
 
-    Optional<Attendance> findByClassName(String className);
-
     @Query(value = "SELECT a FROM Attendance a")
     Page<Attendance> findbyAttendance(Pageable pageable);
 
