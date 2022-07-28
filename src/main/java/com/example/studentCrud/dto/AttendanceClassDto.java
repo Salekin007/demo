@@ -37,6 +37,7 @@ public class AttendanceClassDto {
     public AttendanceClass update(AttendanceClass attendanceClass) {
         attendanceClass.setAttendanceClassName(this.attendanceClassName);
         return attendanceClass;
+
     }
 }
 
