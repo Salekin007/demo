@@ -1,7 +1,6 @@
 package com.example.studentCrud.dto;
 
 import com.example.studentCrud.entity.Course;
-import com.example.studentCrud.entity.Enclosure;
 import com.example.studentCrud.entity.Student;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -19,14 +18,14 @@ public class StudentDto {
 
     private List<Course> courseList;
 
- //   private Enclosure enclosure;
+    //   private Enclosure enclosure;
 
     public static StudentDto response(Student student) {
         StudentDto dto = new StudentDto();
         dto.setId(student.getId());
         dto.setName(student.getName());
-    //    dto.setCourseList(student.getCourseList());
-  //      dto.setEnclosure(student.getEnclosure());
+        //    dto.setCourseList(student.getCourseList());
+        //      dto.setEnclosure(student.getEnclosure());
         return dto;
     }
 

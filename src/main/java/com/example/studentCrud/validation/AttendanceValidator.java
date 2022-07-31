@@ -31,9 +31,9 @@ public class AttendanceValidator implements Validator {
         AttendanceDto dto = (AttendanceDto) target;
         if(dto != null){
             Optional<Attendance> attendance = service.findById(dto.getAttendanceClassId(), RecordStatus.ACTIVE);
-            if(attendance.isPresent()){
-                errors.rejectValue("className", null , "Already Exists");
-            }
+//            if(attendance.isPresent()){
+//                errors.rejectValue("attendanceClassId", null , "Already Exists");
+//            }
         }
         if (isNotEmpty(dto.getStartTime().toString()) & isNotEmpty(dto.getEndTime().toString())) {
             if (dto.getStartTime().after(dto.getEndTime())) {

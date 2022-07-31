@@ -8,7 +8,6 @@ import com.example.studentCrud.helper.AttendanceHelper;
 import com.example.studentCrud.repository.AttendanceRepository;
 import com.example.studentCrud.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -34,10 +33,12 @@ public class AttendanceServiceImpl implements AttendanceService {
         Attendance saveAttendance = repository.save(attendance);
         return saveAttendance;
     }
+
     @Override
     public List<Attendance> findByStudentId(Long studentId) {
         return repository.findByStudentId(studentId);
     }
+
     @Override
     public Optional<Attendance> findById(Long id, RecordStatus recordStatus) {
         Optional<Attendance> attendance = repository.findById(id);

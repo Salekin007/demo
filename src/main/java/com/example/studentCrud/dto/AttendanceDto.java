@@ -14,9 +14,6 @@ import java.util.Date;
 @RequiredArgsConstructor
 public class AttendanceDto {
 
-    @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull

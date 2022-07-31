@@ -5,17 +5,10 @@ import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
 @Data
 @RequiredArgsConstructor
 public class CourseDto {
 
-    @Id
-    @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
@@ -39,10 +32,10 @@ public class CourseDto {
         return course;
     }
 
-    public Course update (Course course){
-       course.setName(this.name);
-       course.setDuration(this.duration);
-       return course;
+    public Course update(Course course) {
+        course.setName(this.name);
+        course.setDuration(this.duration);
+        return course;
     }
 
 }
