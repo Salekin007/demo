@@ -1,6 +1,7 @@
 package com.example.studentCrud.dto;
 
 import com.example.studentCrud.entity.Attendance;
+import com.example.studentCrud.enums.Gender;
 import com.sun.istack.NotNull;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -32,7 +33,7 @@ public class AttendanceDto {
     private Long phoneNumber;
 
     @NotNull
-    private String gender;
+    private Gender gender;
 
     private Long studentId;
 

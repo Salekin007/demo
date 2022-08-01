@@ -1,5 +1,6 @@
 package com.example.studentCrud.entity;
 
+import com.example.studentCrud.enums.Gender;
 import com.example.studentCrud.enums.RecordStatus;
 import com.sun.istack.NotNull;
 import lombok.Data;
@@ -37,6 +38,6 @@ public class Attendance extends BaseEntity {
     private Long phoneNumber;
 
     @Column(name = "ATTENDANCE_gender")
-    private String gender;
+    private Gender gender;
 
 }
