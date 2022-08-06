@@ -37,6 +37,7 @@ public class Attendance extends BaseEntity {
     @Column(name = "ATTENDANCE_Phone_Number")
     private Long phoneNumber;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "ATTENDANCE_gender")
     private Gender gender;
 
