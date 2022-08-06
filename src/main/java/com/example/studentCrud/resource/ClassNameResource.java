@@ -1,11 +1,11 @@
 package com.example.studentCrud.resource;
 
-
-import com.example.studentCrud.dto.CourseDto;
-import com.example.studentCrud.entity.Course;
+import com.example.studentCrud.dto.ClassNameDTO;
+import com.example.studentCrud.entity.ClassName;
 import com.example.studentCrud.enums.RecordStatus;
-import com.example.studentCrud.service.CourseService;
+import com.example.studentCrud.service.ClassNameService;
 import com.example.studentCrud.utils.CommonDataHelper;
+import com.example.studentCrud.validation.ClassNameVaildator;
 import com.example.studentCrud.validation.CourseValidator;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
@@ -22,22 +22,24 @@ import static com.example.studentCrud.utils.ResponseBuilder.success;
 import static org.springframework.http.ResponseEntity.badRequest;
 import static org.springframework.http.ResponseEntity.ok;
 
+
+
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/course")
-public class CourseResource {
+@RequestMapping("/")
+public class ClassNameResource {
 
-    private final CourseValidator validator;
+    private final ClassNameVaildator validator;
 
-    private final CourseService service;
+    private final ClassNameService service;
 
     private final CommonDataHelper helper;
 
     @RequestMapping(
             path = "/save",
             method = RequestMethod.POST)
-   // @ApiOperation(value = "save student info with Image image", response = String.class)
-    public ResponseEntity<JSONObject> save(@RequestBody CourseDto dto, BindingResult bindingResult) {
+    // @ApiOperation(value = "save student info with Image image", response = String.class)
+    public ResponseEntity<JSONObject> save(@RequestBody ClassNameDTO dto, BindingResult bindingResult) {
 
         //  log.info("Got request for creating a student.");
         ValidationUtils.invokeValidator(validator, dto, bindingResult);
@@ -46,8 +48,8 @@ public class CourseResource {
             // error handling code goes here.
             return badRequest().body(error(fieldError(bindingResult)).getJson());
         }
-        Course course = service.insertCourse(dto, RecordStatus.DRAFT);
-        return ok(success(CourseDto.response(course), "Course Save Successfully").getJson());
+        ClassName className = service.insertClassName(dto, RecordStatus.DRAFT);
+        return ok(success(ClassNameDTO.response(className), "Class Name Save Successfully").getJson());
     }
 
     @GetMapping("/find/{id}")
@@ -55,14 +57,14 @@ public class CourseResource {
     //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
     public ResponseEntity<JSONObject> findById(@PathVariable Long id) {
 
-        Optional<Course> course = service.findById(id, RecordStatus.DRAFT);
+        Optional<ClassName> className = service.findById(id, RecordStatus.DRAFT);
 
-        return ok(success(course).getJson());
+        return ok(success(className).getJson());
     }
 
     @PutMapping("/update")
-   // @ApiOperation(value = "Update qouta", response = QoutaRequest.class)
-    public ResponseEntity<JSONObject> update(@RequestBody CourseDto dto, BindingResult bindingResult) {
+    // @ApiOperation(value = "Update qouta", response = QoutaRequest.class)
+    public ResponseEntity<JSONObject> update(@RequestBody ClassNameDTO dto, BindingResult bindingResult) {
 
 
         if (bindingResult.hasErrors()) {
@@ -70,9 +72,9 @@ public class CourseResource {
         }
 
 
-        Course course = service.update(dto, RecordStatus.DRAFT);
+        ClassName className = service.update(dto, RecordStatus.DRAFT);
 
-        return ok(success(CourseDto.response(course), "Course Edited Successfully").getJson());
+        return ok(success(ClassNameDTO.response(className), "Course Edited Successfully").getJson());
     }
 
 

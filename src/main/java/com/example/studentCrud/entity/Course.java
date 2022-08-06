@@ -23,4 +23,9 @@ public class Course extends BaseEntity {
 
     @Column(name = "COURSE_DURATION")
     private String duration;
+
+    @ManyToOne
+    @JoinColumn(name = "CLASS_NAME_ID")
+    private ClassName className;
+
 }

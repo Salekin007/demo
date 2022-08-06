@@ -17,6 +17,7 @@ public class CourseDto {
     @NotNull
     private String duration;
 
+
     public static CourseDto response(Course course) {
         CourseDto dto = new CourseDto();
         dto.setId(course.getId());

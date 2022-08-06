@@ -104,7 +104,7 @@ public class AttendanceClassResource {
         }
 
 
-        AttendanceClass attendanceClass = service.update(dto, RecordStatus.DRAFT);
+        AttendanceClass attendanceClass = service.update(dto, RecordStatus.ACTIVE);
 
         return ok(success(AttendanceClassDto.response(attendanceClass), "Attendance Class Edited Successfully").getJson());
     }

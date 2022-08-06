@@ -57,6 +57,11 @@ public class AttendanceClassServiceImpl implements AttendanceClassService {
 
     @Override
     public AttendanceClass update(AttendanceClassDto dto, RecordStatus draft) {
-        return null;
+        AttendanceClass attendanceClass = repository.findByIdAndRecordStatusNot(dto.getId(), draft)
+                .orElseThrow(() -> new ResourceNotFoundException("Attendance Class Id: " + dto.getId()));
+        helper.getUpdateData(attendanceClass, draft);
+        dto.update(attendanceClass);
+        repository.save(attendanceClass);
+        return attendanceClass;
     }
 }

@@ -1,6 +1,5 @@
 package com.example.studentCrud.repository;
 
-import com.example.studentCrud.entity.Attendance;
 import com.example.studentCrud.entity.AttendanceClass;
 import com.example.studentCrud.enums.RecordStatus;
 import org.springframework.data.domain.Page;
