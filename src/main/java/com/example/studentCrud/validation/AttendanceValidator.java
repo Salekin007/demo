@@ -21,6 +21,7 @@ import static com.example.studentCrud.utils.StringUtils.isNotEmpty;
 public class AttendanceValidator implements Validator {
 
     private final AttendanceService service;
+
     @Override
     public boolean supports(Class<?> clazz) {
         return AttendanceDto.class.isAssignableFrom(clazz);
@@ -29,28 +30,28 @@ public class AttendanceValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         AttendanceDto dto = (AttendanceDto) target;
-        if(dto != null){
-            Optional<Attendance> attendance = service.findById(dto.getAttendanceClassId(), RecordStatus.ACTIVE);
-//            if(attendance.isPresent()){
-//                errors.rejectValue("attendanceClassId", null , "Already Exists");
+//        if(dto != null){
+//            Optional<Attendance> attendance = service.findById(dto.getClassNameId(), RecordStatus.ACTIVE);
+////            if(attendance.isPresent()){
+////                errors.rejectValue("attendanceClassId", null , "Already Exists");
+////            }
+//        }
+//        if (isNotEmpty(dto.getStartTime().toString()) & isNotEmpty(dto.getEndTime().toString())) {
+//            if (dto.getStartTime().after(dto.getEndTime())) {
+//                errors.rejectValue("endTime", null, "Start date is after than End date");
 //            }
-        }
-        if (isNotEmpty(dto.getStartTime().toString()) & isNotEmpty(dto.getEndTime().toString())) {
-            if (dto.getStartTime().after(dto.getEndTime())) {
-                errors.rejectValue("endTime", null, "Start date is after than End date");
-            }
-        }
-        List<Attendance> attendances = service.findByStudentId(dto.getStudentId());
-        attendances.forEach(attendance -> {
-            if (getFormattedDatde(attendance.getStartTime()).equals(getFormattedDatde(dto.getStartTime())))
-                errors.rejectValue("startTime", null, "Already Attendance Taken from you try next day");
-        });
-    }
-
-    private String getFormattedDatde(Date date){
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        return  formatter.format(date);
-    }
+//        }
+//        List<Attendance> attendances = service.findByStudentId(dto.getStudentId());
+//        attendances.forEach(attendance -> {
+//            if (getFormattedDatde(attendance.getStartTime()).equals(getFormattedDatde(dto.getStartTime())))
+//                errors.rejectValue("startTime", null, "Already Attendance Taken from you try next day");
+////        });
+////    }
+//
+//    private String getFormattedDatde(Date date){
+//        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+//        return  formatter.format(date);
+//    }
 
 /*    public static void main(String[] args) {
         String sampleDate = "2022-06-30";
@@ -61,4 +62,5 @@ public class AttendanceValidator implements Validator {
         System.out.println(str.equals(sampleDate));
     }*/
 
+    }
 }

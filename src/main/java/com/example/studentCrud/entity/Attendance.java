@@ -22,8 +22,8 @@ public class Attendance extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "ATTENDANCE_CLASS_ID")
-    private AttendanceClass attendanceClass;
+    @JoinColumn(name = "CLASS_NAME_ID")
+    private ClassName className;
 
     @Column(name = "ATTENDANCE_SECTION")
     private String sectionName;

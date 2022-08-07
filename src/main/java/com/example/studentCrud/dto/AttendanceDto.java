@@ -1,6 +1,7 @@
 package com.example.studentCrud.dto;
 
 import com.example.studentCrud.entity.Attendance;
+import com.example.studentCrud.entity.ClassName;
 import com.example.studentCrud.enums.Gender;
 import com.sun.istack.NotNull;
 import lombok.Data;
@@ -18,7 +19,7 @@ public class AttendanceDto {
     private Long id;
 
     @NotNull
-    private Long attendanceClassId;
+    private ClassName ClassNameId;
 
     @NotNull
     private String sectionName;
@@ -40,7 +41,7 @@ public class AttendanceDto {
     public static AttendanceDto response(Attendance attendance) {
         AttendanceDto dto = new AttendanceDto();
         dto.setId(attendance.getId());
-        dto.setAttendanceClassId(attendance.getAttendanceClass().getId());
+//        dto.setClassNameId(attendance.getClassNameId().getId());
         dto.setSectionName(attendance.getSectionName());
         dto.setStartTime(attendance.getStartTime());
         dto.setEndTime(attendance.getEndTime());
