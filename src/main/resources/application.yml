@@ -39,7 +39,7 @@ spring:
       on-profile: default
   # default Database Configuration
   datasource:
-    url: jdbc:mysql://localhost:3306/Student
+    url: jdbc:mysql://localhost:3306/Student-STG
     username: root
     password: "SsT@6753"
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -93,9 +93,9 @@ spring:
       on-profile: stage
   # default Database Configuration
   datasource:
-    url: jdbc:mysql://localhost:3306/Student-STG
+    url: jdbc:mysql://localhost:3306/Student
     username: root
-    password: "SsT@6753"
+    password:
     driver-class-name: com.mysql.cj.jdbc.Driver
 
     # Hikari Configuration

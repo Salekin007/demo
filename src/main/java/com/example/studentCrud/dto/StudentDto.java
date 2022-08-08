@@ -1,7 +1,9 @@
 package com.example.studentCrud.dto;
 
+import com.example.studentCrud.entity.ClassName;
 import com.example.studentCrud.entity.Course;
 import com.example.studentCrud.entity.Student;
+import com.example.studentCrud.enums.Gender;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
@@ -16,24 +18,24 @@ public class StudentDto {
 
     private String name;
 
-    private List<Course> courseList;
+    private Gender gender;
 
-    //   private Enclosure enclosure;
+    private Long classNameId;
+
 
     public static StudentDto response(Student student) {
         StudentDto dto = new StudentDto();
         dto.setId(student.getId());
         dto.setName(student.getName());
-        //    dto.setCourseList(student.getCourseList());
-        //      dto.setEnclosure(student.getEnclosure());
+        dto.setGender(student.getGender());
+        dto.setClassNameId(student.getClassName().getId());
         return dto;
     }
 
     public Student to() {
         Student student = new Student();
         student.setName(this.name);
-//        student.setCourseList(this.courseList);
-//      student.setEnclosure(this.enclosure);
+        student.setGender(this.gender);
         return student;
     }
 

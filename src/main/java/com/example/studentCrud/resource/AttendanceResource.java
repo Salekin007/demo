@@ -56,15 +56,7 @@ public class AttendanceResource {
             return badRequest().body(error(fieldError(bindingResult)).getJson());
         }
 
-        Student student = studentService.findById(dto.getStudentId()).orElseThrow(ResourceNotFoundException :: new);
-
-
-//        Attendance attendance = service.insertAttendance(dto, RecordStatus.DRAFT);
-        Attendance attendance = dto.to();
-        List<Attendance> attendanceList = new ArrayList<>();
-        attendanceList.add(attendance);
-        student.addAttendence(attendanceList);
-        studentService.saveEncloser(student);
+        Attendance attendance = service.insertAttendance(dto, RecordStatus.DRAFT);
 
         return ok(success(AttendanceDto.response(attendance), "Attendance Save Successfully").getJson());
     }

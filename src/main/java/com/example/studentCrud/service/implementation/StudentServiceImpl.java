@@ -2,12 +2,11 @@ package com.example.studentCrud.service.implementation;
 
 import com.example.studentCrud.dto.StudentCourseListDTO;
 import com.example.studentCrud.dto.StudentDto;
-import com.example.studentCrud.entity.Course;
 import com.example.studentCrud.entity.Student;
-import com.example.studentCrud.entity.StudentCourse;
 import com.example.studentCrud.enums.RecordStatus;
 import com.example.studentCrud.helper.StudentHelper;
 import com.example.studentCrud.repository.StudentRepository;
+import com.example.studentCrud.repository.ClassNameRepository;
 import com.example.studentCrud.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,13 +16,13 @@ import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class StudentServiceImpl implements StudentService {
 
     private final StudentRepository repository;
+    private final ClassNameRepository classNameRepository;
 
     private final StudentHelper helper;
 
@@ -59,6 +58,7 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public Student insertCourse(StudentDto dto, RecordStatus recordStatus) {
         Student student = dto.to();
+        student.setClassName(classNameRepository.findById(dto.getClassNameId()).orElseThrow());
         helper.getSaveData(student, recordStatus);
         Student saveStudent = repository.save(student);
         return saveStudent;

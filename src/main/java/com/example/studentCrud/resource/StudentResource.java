@@ -7,6 +7,7 @@ import com.example.studentCrud.entity.Student;
 import com.example.studentCrud.enums.RecordStatus;
 import com.example.studentCrud.exception.ResourceNotFoundException;
 import com.example.studentCrud.helper.StudentHelper;
+import com.example.studentCrud.response.StudentResponse;
 import com.example.studentCrud.service.StudentService;
 import com.example.studentCrud.utils.CommonDataHelper;
 import com.example.studentCrud.validation.StudentValidator;
@@ -88,12 +89,12 @@ public class StudentResource {
 
 
     @GetMapping("/find/{id}")
-    @ApiOperation(value = "Get student by id", response = String.class)
+    @ApiOperation(value = "Get student by id", response = StudentResponse.class)
     public ResponseEntity<JSONObject> findById(@PathVariable Long id) {
 
-        Optional<Student> student = service.findById(id);
+        Student student = service.findById(id).orElseThrow();
 
-        return ok(success(student).getJson());
+        return ok(success(StudentResponse.response(student)).getJson());
     }
 
     @PutMapping("/update")

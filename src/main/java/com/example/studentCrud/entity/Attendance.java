@@ -22,23 +22,10 @@ public class Attendance extends BaseEntity {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "CLASS_NAME_ID")
-    private ClassName className;
+    @JoinColumn(name="STUDENT_ID")
+    private Student student;
 
-    @Column(name = "ATTENDANCE_SECTION")
-    private String sectionName;
-
-    @Column(name = "ATTENDANCE_Start_Time")
-    private Date startTime;
-
-    @Column(name = "ATTENDANCE_End_Time")
-    private Date endTime;
-
-    @Column(name = "ATTENDANCE_Phone_Number")
-    private Long phoneNumber;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "ATTENDANCE_gender")
-    private Gender gender;
+    @Column(name = "ATTENDANCE_Date")
+    private Date attendanceDate;
 
 }

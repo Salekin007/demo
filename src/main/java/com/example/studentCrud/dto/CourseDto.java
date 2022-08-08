@@ -11,6 +11,8 @@ public class CourseDto {
 
     private Long id;
 
+    private Long classNameId;
+
     @NotNull
     private String name;
 
@@ -21,6 +23,7 @@ public class CourseDto {
     public static CourseDto response(Course course) {
         CourseDto dto = new CourseDto();
         dto.setId(course.getId());
+        dto.setClassNameId(course.getClassName().getId());
         dto.setName(course.getName());
         dto.setDuration(course.getDuration());
         return dto;

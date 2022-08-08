@@ -6,6 +6,7 @@ import com.example.studentCrud.enums.RecordStatus;
 import com.example.studentCrud.exception.ResourceNotFoundException;
 import com.example.studentCrud.helper.AttendanceHelper;
 import com.example.studentCrud.repository.AttendanceRepository;
+import com.example.studentCrud.repository.StudentRepository;
 import com.example.studentCrud.service.AttendanceService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -22,6 +23,7 @@ import java.util.Optional;
 public class AttendanceServiceImpl implements AttendanceService {
 
     private final AttendanceRepository repository;
+    private final StudentRepository studentRepository;
     private final AttendanceHelper helper;
     private final EntityManager em;
 
@@ -29,6 +31,7 @@ public class AttendanceServiceImpl implements AttendanceService {
     @Transactional
     public Attendance insertAttendance(AttendanceDto dto, RecordStatus recordStatus) {
         Attendance attendance = dto.to();
+        attendance.setStudent(studentRepository.getById(dto.getStudentId()));
         helper.getSaveData(attendance, recordStatus);
         Attendance saveAttendance = repository.save(attendance);
         return saveAttendance;
@@ -50,7 +53,6 @@ public class AttendanceServiceImpl implements AttendanceService {
 //        return repository.findByRecordStatusNot(RecordStatus.DELETED);
         return repository.findAll();
     }
-
 
     @Override
     public List<Attendance> findbyAttendance(int page, int size) {
