@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,6 +70,10 @@ public class AttendanceServiceImpl implements AttendanceService {
         repository.save(attendance);
     }
 
+    @Override
+    public List<Attendance> findByAttendanceDate(String date) {
+        return repository.findByAttendanceDate(date);
+    }
 
     @Override
     @Transactional

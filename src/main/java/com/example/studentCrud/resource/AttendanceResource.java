@@ -6,6 +6,8 @@ import com.example.studentCrud.entity.Attendance;
 import com.example.studentCrud.entity.Student;
 import com.example.studentCrud.enums.RecordStatus;
 import com.example.studentCrud.exception.ResourceNotFoundException;
+import com.example.studentCrud.response.AttendanceResponse;
+import com.example.studentCrud.response.StudentResponse;
 import com.example.studentCrud.service.AttendanceService;
 import com.example.studentCrud.service.StudentService;
 import com.example.studentCrud.utils.CommonDataHelper;
@@ -20,9 +22,14 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.example.studentCrud.exception.ApiError.fieldError;
 import static com.example.studentCrud.utils.ResponseBuilder.error;
@@ -62,43 +69,59 @@ public class AttendanceResource {
     }
 
     @GetMapping("/find/{id}")
-    @ResponseBody
     //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
     public ResponseEntity<JSONObject> findById(@PathVariable Long id) {
 
         Optional<Attendance> attendance = service.findById(id, RecordStatus.DRAFT);
 
-        return ok(success(attendance).getJson());
+        return ok(success(AttendanceResponse.response(attendance.get())).getJson());
     }
 
     @GetMapping("/find/All")
-    @ResponseBody
-    //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
+    @ApiOperation(value = "Get student by id", response = AttendanceResponse.class)
     public ResponseEntity<JSONObject> findAll() {
 
         List<Attendance> attendance = service.findAll();
 
-        return ok(success(attendance).getJson());
+        List<AttendanceResponse> attendanceResponses = attendance.stream().map(AttendanceResponse::response).collect(Collectors.toList());
+
+        return ok(success(attendanceResponses).getJson());
     }
 
     @GetMapping("/find/studentId")
-    @ResponseBody
-    //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
+    @ApiOperation(value = "Get student by id", response = StudentResponse.class)
     public ResponseEntity<JSONObject> findAll(@RequestParam Long studentId) {
 
-        List<Attendance> attendance = service.findByStudentId(studentId);
+        List<Attendance> attendances = service.findByStudentId(studentId);
 
-        return ok(success(attendance).getJson());
+        List<AttendanceResponse> responseList = new ArrayList<>();
+        for(Attendance attendance : attendances){
+            responseList.add(AttendanceResponse.response(attendance));
+        }
+
+        return ok(success(responseList).getJson());
     }
-    @GetMapping("/find/ByAttendance")
-    @ResponseBody
-    //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
-    public ResponseEntity<JSONObject> findbyAttendance(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+    @GetMapping("/find")
+    public ResponseEntity<JSONObject> findByAttenadanceDate(@RequestParam String attendancedate) throws ParseException {
 
-        List<Attendance> attendance = service.findbyAttendance(page, size);
+//        Date date1=new SimpleDateFormat("yyyy-MM-dd").parse(attendancedate);
 
-        return ok(success(attendance).getJson());
+        List<Attendance> attendances = service.findByAttendanceDate(attendancedate);
+
+        List<AttendanceResponse> responseList = new ArrayList<>();
+        for(Attendance attendance : attendances){
+            responseList.add(AttendanceResponse.response(attendance));
+        }
+
+        return ok(success(responseList).getJson());
     }
+//    //@ApiOperation(value = "Get student by id", response = StudentResponse.class)
+//    public ResponseEntity<JSONObject> findbyAttendance(@RequestParam(defaultValue = "1") int page, @RequestParam(defaultValue = "10") int size) {
+//
+//        List<Attendance> attendance = service.findbyAttendance(page, size);
+//        for(Attendance attendance : attendances){
+//        return ok(success(attendance).getJson());
+//    }
     @PutMapping("/update")
     // @ApiOperation(value = "Update qouta", response = QoutaRequest.class)
     public ResponseEntity<JSONObject> update(@RequestBody AttendanceDto dto, BindingResult bindingResult) {

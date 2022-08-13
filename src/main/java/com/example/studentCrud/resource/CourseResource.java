@@ -7,6 +7,7 @@ import com.example.studentCrud.enums.RecordStatus;
 import com.example.studentCrud.service.CourseService;
 import com.example.studentCrud.utils.CommonDataHelper;
 import com.example.studentCrud.validation.CourseValidator;
+import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,8 @@ import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/course")
+@RequestMapping("api/v1/Course")
+@Api(tags = "Course info")
 public class CourseResource {
 
     private final CourseValidator validator;

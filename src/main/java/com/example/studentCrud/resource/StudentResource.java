@@ -39,7 +39,7 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("api/v1/student")
-@Api(tags = "Student's data")
+@Api(tags = "Indiviual Student's data")
 public class StudentResource {
 
     private final StudentValidator validator;

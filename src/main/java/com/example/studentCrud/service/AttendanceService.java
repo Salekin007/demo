@@ -8,6 +8,7 @@ import com.example.studentCrud.enums.RecordStatus;
 import com.example.studentCrud.exception.ResourceNotFoundException;
 
 import javax.transaction.Transactional;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,5 +24,7 @@ public interface AttendanceService {
     Attendance update(AttendanceDto dto, RecordStatus recordStatus);
 
     void updateRecordStatus(Long id, RecordStatus status);
+
+    List<Attendance> findByAttendanceDate(String date);
 
 }

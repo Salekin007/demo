@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,4 +25,7 @@ public interface AttendanceRepository extends JpaRepository<Attendance, Long> {
 
     @Query(value = "SELECT * FROM ATTENDANCE where STUDENT_ID = :studentId", nativeQuery = true)
     List<Attendance> findByStudentId(Long studentId);
+
+    @Query(value = "SELECT * FROM ATTENDANCE where ATTENDANCE_Date LIKE %:date%", nativeQuery = true)
+    List<Attendance> findByAttendanceDate(String date);
 }
