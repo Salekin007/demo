@@ -3,19 +3,24 @@ package com.example.studentCrud.resource;
 import com.example.studentCrud.dto.ClassNameDTO;
 import com.example.studentCrud.entity.ClassName;
 import com.example.studentCrud.enums.RecordStatus;
+import com.example.studentCrud.response.ClassNameResponse;
 import com.example.studentCrud.service.ClassNameService;
 import com.example.studentCrud.utils.CommonDataHelper;
 import com.example.studentCrud.validation.ClassNameVaildator;
 import com.example.studentCrud.validation.CourseValidator;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.query.Query;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import static com.example.studentCrud.exception.ApiError.fieldError;
 import static com.example.studentCrud.utils.ResponseBuilder.error;
@@ -63,6 +68,15 @@ public class ClassNameResource {
 
         return ok(success(className).getJson());
     }
+
+    @GetMapping("/find/All")
+    @ApiOperation(value = "Get attendance by id", response = ClassNameResponse.class)
+    public ResponseEntity<JSONObject> findAll(){
+        List<ClassName> classNames = service.findAll();
+        List<ClassNameResponse> classNameResponses = classNames.stream().map(ClassNameResponse::response).collect(Collectors.toList());
+        return ok(success(classNameResponses).getJson());
+    }
+
 
     @PutMapping("/update")
     // @ApiOperation(value = "Update qouta", response = QoutaRequest.class)

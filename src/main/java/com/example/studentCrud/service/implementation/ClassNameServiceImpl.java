@@ -34,7 +34,7 @@ public class ClassNameServiceImpl implements ClassNameService {
 
     @Override
     public List<ClassName> findAll() {
-        return null;
+        return repository.findAll();
     }
 
     @Override
