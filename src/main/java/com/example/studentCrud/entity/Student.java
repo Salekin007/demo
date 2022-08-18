@@ -34,6 +34,10 @@ public class Student extends BaseEntity {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "STUDENT_ID")
+    private List<Enclosure> enclosure;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "STUDENT_ID")
     @ToString.Exclude
     private List<Attendance> attendanceList;
 
@@ -43,18 +47,11 @@ public class Student extends BaseEntity {
         }
         this.attendanceList.addAll(attendance);
     }
-//
-//    @Override
-//    public boolean equals(Object o) {
-//        if (this == o) return true;
-//        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
-//        Student student = (Student) o;
-//        return id != null && Objects.equals(id, student.id);
-//    }
-//
-//    @Override
-//    public int hashCode() {
-//        return getClass().hashCode();
-//    }
 
+    public void addEnclosures(List<Enclosure> encloser) {
+        if (this.enclosure == null) {
+            this.enclosure = new ArrayList<>();
+        }
+        this.enclosure.addAll(encloser);
+    }
 }

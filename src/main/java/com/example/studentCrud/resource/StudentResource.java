@@ -67,25 +67,25 @@ public class StudentResource {
         return ok(success(StudentDto.response(student), "Student Save Successfully").getJson());
     }
 
-    @RequestMapping(
-            path = "/save/encloser/{studentId}",
-            method = RequestMethod.POST,
-            consumes = {"multipart/form-data"})
-    @ApiOperation(value = "save student info with Image image", response = StudentDto.class)
-    public ResponseEntity<JSONObject> saveEnclosure(@PathVariable("studentId") @NotNull Long studentId,
-                                                    @RequestPart(value = "file1", required = false) MultipartFile file1,
-                                                    @RequestParam(value = "request1", required = false) String request1) {
-
-        Student student = service.findById(studentId)
-                .orElseThrow(() -> new ResourceNotFoundException("Student " + studentId));
-
-        if (nonNull(file1) && isEmpty(request1))
-            return badRequest().body(
-                    error("file 1 data must be selected").getJson());
-
-        service.saveEncloser(student);
-        return ok(success(null, "success").getJson());
-    }
+//    @RequestMapping(
+//            path = "/save/encloser/{studentId}",
+//            method = RequestMethod.POST,
+//            consumes = {"multipart/form-data"})
+//    @ApiOperation(value = "save student info with Image image", response = StudentDto.class)
+//    public ResponseEntity<JSONObject> saveEnclosure(@PathVariable("studentId") @NotNull Long studentId,
+//                                                    @RequestPart(value = "file1", required = false) MultipartFile file1,
+//                                                    @RequestParam(value = "request1", required = false) String request1) {
+//
+//        Student student = service.findById(studentId)
+//                .orElseThrow(() -> new ResourceNotFoundException("Student " + studentId));
+//
+//        if (nonNull(file1) && isEmpty(request1))
+//            return badRequest().body(
+//                    error("file 1 data must be selected").getJson());
+//
+//        service.saveEncloser(student);
+//        return ok(success(null, "success").getJson());
+//    }
 
 
     @GetMapping("/find/{id}")
@@ -121,4 +121,34 @@ public class StudentResource {
 
         return ok(success(null, "Attendance Edited Successfully").getJson());
     }
+
+    @RequestMapping(
+            path = "/save/encloser/{studentId}",
+            method = RequestMethod.POST,
+            consumes = {"multipart/form-data"})
+    @ApiOperation(value = "save student info with Image image", response = StudentDto.class)
+    public ResponseEntity<JSONObject> saveEnclosure(@PathVariable("studentId") @NotNull Long studentId,
+                                                    @RequestPart(value = "file1", required = false) MultipartFile file1,
+                                                    @RequestParam(value = "request1", required = false) String request1) {
+
+        Student student = service.findById(studentId)
+                .orElseThrow(() -> new ResourceNotFoundException("Student " + studentId));
+
+        if (nonNull(file1) && isEmpty(request1))
+            return badRequest().body(
+                    error("file 1 data must be selected").getJson());
+
+        List<Enclosure> enclosures = null;
+        try {
+            enclosures = studentHelper.getStudentEnclosers(file1, request1, student);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        student.addEnclosures(enclosures);
+
+        service.saveEncloser(student);
+        return ok(success(null, "success").getJson());
+    }
+
 }

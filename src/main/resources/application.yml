@@ -37,7 +37,7 @@ spring:
   config:
     activate:
       on-profile: default
-  # default Database Configuration
+#   default Database Configuration
   datasource:
     url: jdbc:mysql://localhost:3306/Student-STG
     username: root

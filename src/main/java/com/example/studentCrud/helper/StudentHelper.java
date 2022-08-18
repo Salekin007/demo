@@ -52,4 +52,28 @@ public class StudentHelper  extends FileUpload {
             MultipartFile file1) {
         encloser_1.setUrl(upload(file1, env.getProperty("ftpFileUploadPath")));
     }
+
+    public List<Enclosure> getStudentEnclosers(
+            MultipartFile file1,
+            String request1,
+            Student student) throws JsonProcessingException {
+
+        List<Enclosure> enclosers = new ArrayList<>();
+        if (student.getEnclosure() != null) {
+            if (!student.getEnclosure().isEmpty()) {
+                List<Enclosure> lists = new ArrayList<>(student.getEnclosure());
+                enclosers.addAll(lists);
+            }
+        }
+
+        Enclosure encloser_1 = new ObjectMapper().readValue(request1, Enclosure.class);
+
+        enclosers.add(encloser_1);
+
+        if (nonNull(file1)) {
+            setEncloserFile(encloser_1, file1);
+        }
+        return enclosers;
+    }
+
 }
